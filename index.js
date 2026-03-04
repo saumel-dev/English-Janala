@@ -95,8 +95,8 @@ const displayLevelWord = (words) => {
                     </button>
                 </div>
                 <div class="btn2 border-none bg-gray-200 p-2 rounded-md cursor-pointer">
-                    <button class="cursor-pointer">
-                        <i class="fa-solid fa-volume-high cursor-pointer"></i>
+                    <button onclick="pronounceWord('${word.word}')" class="cursor-pointer">
+                        <i onclick="pronounceWord('${word.word}')" class="fa-solid fa-volume-high cursor-pointer"></i>
                     </button>
                 </div>
             </div>
@@ -128,8 +128,11 @@ document.getElementById('btn-search').addEventListener('click', () =>{
         const allWords = data.data;
         const filterWords = allWords.filter(word => word.word.toLowerCase().includes(searchValue));
         displayLevelWord(filterWords);
-    });
-    
-    
-    
+    });   
 })
+
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
